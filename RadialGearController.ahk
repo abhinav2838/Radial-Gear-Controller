@@ -1,4 +1,4 @@
-﻿#Persistent
+#Persistent
 /*
 8-Zone Radial Gear Shifter OSD
 --------------------------------
@@ -46,6 +46,9 @@ if (JoyID = 0) {
     ExitApp
 }
 
+; Show the menu immediately upon starting the script
+ShowRadialGear(0) 
+
 SetTimer, WatchStick, 50
 return
 
@@ -64,7 +67,6 @@ if (rClick = "D") {
     LastStickZone := 0 ; Reset stick state
     
     ShowRadialGear(0) ; 0 indicates Neutral
-    SetTimer, HideRadialMenu, 1000
     
     ; Wait for button release to prevent rapid toggling
     KeyWait, %JoyID%Joy10 
@@ -105,9 +107,8 @@ if (StickZone != LastStickZone) {
             CurrentGear := StickZone
         }
         
-        ; Always show the visual menu when entering any zone
+        ; Update the visual menu to highlight the new gear
         ShowRadialGear(CurrentGear)
-        SetTimer, HideRadialMenu, 1000
     }
     LastStickZone := StickZone
 }
@@ -116,10 +117,6 @@ SetTimer, WatchStick, 50
 return
 
 ; --- GUI FUNCTIONS ---
-HideRadialMenu:
-Gui, Radial:Hide
-return
-
 ShowRadialGear(Active) {
     ; Reset all text to pure white
     Gui, Radial:Font, cWhite
@@ -136,5 +133,5 @@ ShowRadialGear(Active) {
         GuiControl, Radial:Font, G%Active%
         
     ; Show the GUI on the left side (x50) and vertically centered
-    Gui, Radial:Show,  w160 h160 NoActivate, GearRadial
+    Gui, Radial:Show, x400 y500 w160 h160 NoActivate, GearRadial
 }
