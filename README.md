@@ -15,19 +15,23 @@ A lightweight, borderless on-screen display (OSD) that turns your gamepad's righ
 4. To close the script when you are done playing, look for the green "H" icon in your Windows system tray (bottom right corner of your screen), right-click it, and select **Exit**.
 
 ## In-Game Setup
-For the script to communicate correctly with your vehicle, you must map your in-game transmission settings to match the tool's hardcoded Numpad outputs. 
+Because Euro Truck Simulator restricts mapping keyboard keys to H-shifter positions through the settings menu when a gamepad is active, you must manually route the script's Numpad outputs to your transmission by editing your controls file.
 
-1. Open your game's control and keybind settings.
-2. Set your transmission type to **Manual** or **H-Shifter**.
-3. Map your gear positions exactly as follows:
-   * **Reverse:** Numpad 1
-   * **Gear 1:** Numpad 2
-   * **Gear 2:** Numpad 3
-   * **Gear 3:** Numpad 4
-   * **Gear 4:** Numpad 5
-   * **Gear 5:** Numpad 6
-   * **Gear 6:** Numpad 7
-   * **Crawler / Extra Gear:** Numpad 8
+1. Open File Explorer and navigate to your profiles directory: 
+   `Documents\Euro Truck Simulator 2\profiles`
+2. Open your specific profile folder (the folder name will be a long string of numbers and letters).
+3. Right-click the `controls.sii` file and open it with Notepad.
+4. Press **Ctrl + F** to locate the gear mix lines. Change the text inside the quotation marks to match the exact lines below. *(Note: Do not alter the `config_lines[Number]` at the start of your rows, only replace the bindings inside the quotes).*
+
+   ```text
+   config_lines[XXX]: "mix gearrev `keyboard.num1?0`"
+   config_lines[XXX]: "mix gear1 `keyboard.num2?0`"
+   config_lines[XXX]: "mix gear2 `keyboard.num3?0`"
+   config_lines[XXX]: "mix gear3 `keyboard.num4?0`"
+   config_lines[XXX]: "mix gear4 `keyboard.num5?0`"
+   config_lines[XXX]: "mix gear5 `keyboard.num6?0`"
+   config_lines[XXX]: "mix gear6 `keyboard.num7?0`"
+   config_lines[XXX]: "mix gear7 `keyboard.num8?0`"
 
 ## How to Modify the Script
 If you want to change the visual layout, screen coordinates, or specific Numpad keybinds, you can edit the raw source code rather than using the pre-compiled `.exe`.
